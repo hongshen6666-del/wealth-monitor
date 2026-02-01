@@ -1,0 +1,22 @@
+name: Wealth-Monitor-Bot
+
+on:
+  schedule:
+    # 每天上午 10:00 自动检查（这里是 UTC 时间，0 2 代表北京时间上午 10:00）
+    - cron: '0 2 * * *'
+  workflow_dispatch: # 允许你手动点击按钮运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install requests yfinance
+      - name: Run Agent
+        run: python main.py
